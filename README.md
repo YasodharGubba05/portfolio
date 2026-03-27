@@ -1,3 +1,55 @@
+# Personal Portfolio — Gubba Yasodhar
+
+Production-grade portfolio built with **Next.js (App Router)**, **TypeScript**, **Tailwind CSS**, and **Framer Motion**.
+
+## Tech
+
+- Next.js + React
+- TypeScript (strict)
+- Tailwind CSS
+- Framer Motion
+
+## Run locally
+
+```bash
+npm install
+npm run dev
+```
+
+Then open `http://localhost:3000`.
+
+## Customize content
+
+Edit:
+
+- `src/content/site.ts` (name, tagline, links, email)
+- `src/content/skills.ts`
+- `src/content/projects.ts`
+
+## Resume
+
+Replace `public/resume.pdf` with your real resume PDF (same filename) to keep the “Download Resume” button working.
+
+## Production build
+
+```bash
+npm run build
+npm start
+```
+
+## Deploy to Vercel
+
+1. Push the repo to GitHub.
+2. In Vercel, click **New Project** → import your repo.
+3. Framework preset: **Next.js** (auto-detected).
+4. Build command: `next build` (default)
+5. Output: managed by Next.js (default)
+6. Deploy.
+
+### Post-deploy checklist
+
+- Update `metadataBase` in `src/app/layout.tsx` to your real domain (e.g. `https://yourname.vercel.app` or custom domain).
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
@@ -34,3 +86,4 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# portfolio
