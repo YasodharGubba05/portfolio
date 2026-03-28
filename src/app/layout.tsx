@@ -1,5 +1,6 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Poppins } from "next/font/google";
+import { ThemeProvider } from "@/components/ThemeProvider";
 import "./globals.css";
 
 const inter = Inter({
@@ -50,6 +51,13 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#0f0f0f",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -59,9 +67,10 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${inter.variable} ${poppins.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col bg-background text-foreground noise">
-        {children}
+      <body className="min-h-full flex flex-col bg-background text-foreground noise overflow-x-clip pb-[env(safe-area-inset-bottom)]">
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );

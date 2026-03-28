@@ -12,7 +12,7 @@ function IconLink({
 }) {
   return (
     <a
-      className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.02] text-zinc-200 transition hover:bg-white/[0.06] hover:text-zinc-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+      className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[var(--border-subtle)] bg-[var(--fill-chip)] text-[var(--text-secondary)] transition hover:bg-[var(--fill-hover)] hover:text-[var(--text-primary)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
       href={href}
       target="_blank"
       rel="noopener noreferrer"
@@ -26,18 +26,20 @@ function IconLink({
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/10 py-10">
-      <Container className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-        <div>
-          <p className="text-sm text-zinc-300">
-            <span className="font-semibold text-zinc-50">{site.name}</span> —{" "}
-            {site.role}
+    <footer className="border-t border-[var(--border-subtle)] py-8 sm:py-10">
+      <Container className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+        <div className="min-w-0">
+          <p className="text-sm text-[var(--text-body)]">
+            <span className="font-semibold text-[var(--text-primary)]">
+              {site.name}
+            </span>{" "}
+            — {site.role}
           </p>
-          <p className="mt-1 text-sm text-zinc-500">
+          <p className="mt-1 text-sm text-[var(--text-label)]">
             Built with Next.js, TypeScript, Tailwind, and Framer Motion.
           </p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex min-w-0 flex-wrap items-center gap-3">
           <IconLink href={site.links.github} label="GitHub">
             <svg
               width="18"
@@ -63,7 +65,7 @@ export function Footer() {
           </IconLink>
 
           <a
-            className="ml-1 text-sm text-zinc-400 hover:text-zinc-200 transition"
+            className="ml-0 max-w-full break-all text-sm text-[var(--text-muted)] transition hover:text-[var(--text-primary)] sm:ml-1 sm:break-normal"
             href={`mailto:${site.email}`}
           >
             {site.email}

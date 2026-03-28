@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Container } from "@/components/Container";
 import { Button } from "@/components/Button";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { cn } from "@/lib/cn";
 import { site } from "@/content/site";
 
@@ -44,38 +45,39 @@ export function Nav() {
 
   return (
     <>
-      <header className="sticky top-0 z-50">
+      <header className="sticky top-0 z-50 pt-[env(safe-area-inset-top)]">
         <div
-          className={cn(
+            className={cn(
             "border-b border-transparent transition-colors",
             scrolled
-              ? "bg-[rgba(15,15,15,0.80)] backdrop-blur-xl border-white/10"
+              ? "border-[var(--border-subtle)] bg-[var(--nav-scrolled-bg)] backdrop-blur-xl"
               : "",
           )}
         >
-          <Container className="flex h-16 items-center justify-between">
+          <Container className="flex h-14 min-h-14 items-center justify-between gap-3 sm:h-16 sm:min-h-16">
             <a
               href="#top"
-              className="font-semibold tracking-tight text-zinc-100"
+              className="min-w-0 shrink truncate pr-2 font-semibold tracking-tight text-[var(--text-primary)]"
             >
               {site.name}
-              <span className="text-zinc-500">.</span>
+              <span className="text-[var(--text-label)]">.</span>
             </a>
 
             {/* Desktop nav */}
-            <nav className="hidden md:flex items-center gap-6 text-sm text-zinc-300">
+            <nav className="hidden items-center gap-6 text-sm text-[var(--text-body)] md:flex">
               {items.map((item) => (
                 <a
                   key={item.id}
                   href={`#${item.id}`}
-                  className="hover:text-zinc-50 transition-colors"
+                  className="transition-colors duration-300 ease-out hover:text-[var(--text-primary)]"
                 >
                   {item.label}
                 </a>
               ))}
             </nav>
 
-            <div className="flex items-center gap-2">
+            <div className="flex shrink-0 items-center gap-2">
+              <ThemeToggle />
               <Button
                 href="#projects"
                 variant="ghost"
@@ -94,9 +96,11 @@ export function Nav() {
 
               {/* Hamburger button — mobile only */}
               <button
+                type="button"
                 onClick={() => setMenuOpen((o) => !o)}
-                aria-label="Toggle menu"
-                className="md:hidden relative z-50 flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.03] text-zinc-200 transition hover:bg-white/[0.07]"
+                aria-expanded={menuOpen}
+                aria-label={menuOpen ? "Close menu" : "Open menu"}
+                className="relative z-50 flex h-11 w-11 min-h-[44px] min-w-[44px] items-center justify-center rounded-full border border-[var(--border-subtle)] bg-[var(--fill-chip)] text-[var(--text-body)] transition hover:bg-[var(--fill-hover)] active:scale-[0.98] md:hidden"
               >
                 <motion.span
                   animate={menuOpen ? "open" : "closed"}
@@ -147,7 +151,7 @@ export function Nav() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.22 }}
-              className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm md:hidden"
+              className="fixed inset-0 z-40 backdrop-blur-sm md:hidden bg-[var(--backdrop)]"
               onClick={closeMenu}
             />
 
@@ -158,26 +162,26 @@ export function Nav() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -16 }}
               transition={{ duration: 0.28, ease: "easeOut" }}
-              className="fixed top-16 left-0 right-0 z-40 md:hidden"
+              className="fixed left-0 right-0 z-40 max-h-[calc(100dvh-3.5rem-env(safe-area-inset-top))] overflow-y-auto overscroll-contain md:hidden top-[calc(3.5rem+env(safe-area-inset-top))] sm:top-[calc(4rem+env(safe-area-inset-top))] sm:max-h-[calc(100dvh-4rem-env(safe-area-inset-top))]"
             >
-              <div className="mx-4 rounded-2xl border border-white/10 bg-[rgba(15,15,15,0.96)] backdrop-blur-2xl shadow-2xl overflow-hidden">
-                <nav className="flex flex-col divide-y divide-white/[0.06]">
+              <div className="mx-3 mb-3 overflow-hidden rounded-2xl border border-[var(--border-subtle)] bg-[var(--drawer-bg)] shadow-2xl backdrop-blur-2xl">
+                <nav className="flex flex-col divide-y divide-[var(--border-subtle)]">
                   {items.map((item) => (
                     <a
                       key={item.id}
                       href={`#${item.id}`}
                       onClick={closeMenu}
-                      className="flex items-center px-6 py-4 text-base font-medium text-zinc-200 hover:text-zinc-50 hover:bg-white/[0.04] transition-colors"
+                      className="flex min-h-12 items-center px-5 py-3.5 text-base font-medium text-[var(--text-body)] transition-colors hover:bg-[var(--fill-muted)] hover:text-[var(--text-primary)] active:bg-[var(--fill-hover)]"
                     >
                       {item.label}
                     </a>
                   ))}
                 </nav>
-                <div className="flex gap-3 px-6 py-4 border-t border-white/[0.06]">
+                <div className="flex gap-3 border-t border-[var(--border-subtle)] px-6 py-4">
                   <a
                     href="#projects"
                     onClick={closeMenu}
-                    className="flex-1 inline-flex items-center justify-center rounded-full px-4 py-2.5 text-sm font-semibold text-zinc-200 border border-white/10 hover:bg-white/[0.06] transition"
+                    className="inline-flex flex-1 items-center justify-center rounded-full border border-[var(--border-subtle)] px-4 py-2.5 text-sm font-semibold text-[var(--text-body)] transition hover:bg-[var(--fill-hover)]"
                   >
                     View Projects
                   </a>

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { Container } from "@/components/Container";
@@ -5,20 +6,19 @@ import { Section } from "@/components/Section";
 import { MotionDiv } from "@/components/Motion";
 import { AuroraBlob } from "@/components/AuroraBlob";
 import { SpotlightCard } from "@/components/SpotlightCard";
-import { AnimateIn } from "@/components/AnimateIn";
-import { site } from "@/content/site";
+import { AnimateIn } from "@/components/AnimateIn";import { site } from "@/content/site";
 import { skillGroups } from "@/content/skills";
 import { projects } from "@/content/projects";
 import { cn } from "@/lib/cn";
 
 export default function Home() {
   return (
-    <div id="top" className="min-h-screen">
+    <div id="top" className="min-h-screen min-w-0 overflow-x-clip">
       <Nav />
 
       <main>
         {/* ── Hero ─────────────────────────────────────────── */}
-        <section className="relative overflow-hidden py-16 sm:py-24">
+        <section className="relative overflow-hidden py-12 sm:py-20 lg:py-24">
           <AuroraBlob />
 
           <Container className="relative">
@@ -26,29 +26,32 @@ export default function Home() {
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: "easeOut" }}
-              className="glass rounded-3xl p-7 sm:p-10"
+              className="relative"
             >
-              <p className="text-xs font-semibold tracking-[0.18em] uppercase text-zinc-400">
+              <SpotlightCard className="glass rounded-2xl p-5 sm:rounded-3xl sm:p-8 lg:p-10">
+              <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-10">
+                <div className="order-2 min-w-0 flex-1 lg:order-1">
+              <p className="text-xs font-semibold tracking-[0.18em] uppercase text-[var(--text-muted)]">
                 {site.role}
               </p>
-              <h1 className="mt-3 text-3xl sm:text-5xl font-bold tracking-tight text-zinc-50">
+              <h1 className="mt-3 text-2xl font-bold leading-tight tracking-tight text-[var(--text-primary)] min-[400px]:text-3xl sm:text-4xl lg:text-5xl">
                 <span className="gradient-text">{site.name}</span>
-                <span className="text-zinc-500">{"."}</span>
+                <span className="text-[var(--text-label)]">{"."}</span>
               </h1>
-              <p className="mt-4 max-w-2xl text-base sm:text-lg leading-7 text-zinc-300">
+              <p className="mt-4 max-w-2xl text-base sm:text-lg leading-7 text-[var(--text-body)] text-pretty">
                 {site.tagline}
               </p>
 
-              <div className="mt-7 flex flex-col sm:flex-row gap-3">
+              <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                 <a
                   href="#projects"
-                  className="inline-flex items-center justify-center rounded-full px-5 py-2.5 text-sm font-semibold bg-gradient-to-r from-[var(--accent-from)] to-[var(--accent-to)] text-black hover:brightness-110 transition"
+                  className="inline-flex min-h-11 items-center justify-center rounded-full px-5 py-3 text-sm font-semibold bg-gradient-to-r from-[var(--accent-from)] to-[var(--accent-to)] text-black transition hover:brightness-110 active:brightness-95"
                 >
                   View Projects
                 </a>
                 <a
                   href="#contact"
-                  className="glass inline-flex items-center justify-center rounded-full px-5 py-2.5 text-sm font-semibold text-zinc-50 hover:bg-white/[0.06] transition"
+                  className="glass inline-flex min-h-11 items-center justify-center rounded-full px-5 py-3 text-sm font-semibold text-[var(--text-primary)] transition hover:bg-[var(--fill-hover)] active:bg-[var(--fill-hover)]"
                 >
                   Contact Me
                 </a>
@@ -56,13 +59,13 @@ export default function Home() {
                   href={site.resume.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center rounded-full px-5 py-2.5 text-sm font-semibold text-zinc-200 hover:text-zinc-50 transition"
+                  className="inline-flex min-h-11 items-center justify-center rounded-full px-5 py-3 text-sm font-semibold text-[var(--text-secondary)] transition hover:text-[var(--text-primary)] active:text-[var(--text-secondary)]"
                 >
                   {site.resume.label}
                 </a>
               </div>
 
-              <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+              <div className="mt-8 grid grid-cols-1 gap-3 text-sm sm:grid-cols-2">
                 {[
                   {
                     k: "Focus",
@@ -72,22 +75,43 @@ export default function Home() {
                 ].map((item) => (
                   <div
                     key={item.k}
-                    className="rounded-2xl border border-white/10 bg-white/[0.02] p-4 hover:bg-white/[0.035] transition"
+                    className="panel-inset p-4 transition-colors duration-300 hover:bg-[var(--fill-muted)]"
                   >
-                    <p className="text-zinc-500">{item.k}</p>
-                    <p className="mt-1 font-semibold text-zinc-100">{item.v}</p>
+                    <p className="text-[var(--text-label)]">{item.k}</p>
+                    <p className="mt-1 font-semibold text-[var(--text-secondary)]">{item.v}</p>
                   </div>
                 ))}
               </div>
+                </div>
+
+                <div className="order-1 mx-auto shrink-0 lg:order-2 lg:mx-0 lg:pt-1">
+                  <div
+                    className={cn(
+                      "relative aspect-square w-28 overflow-hidden rounded-full border border-[var(--border-subtle)] shadow-[0_12px_32px_rgba(15,23,42,0.12)] dark:shadow-[0_16px_40px_rgba(0,0,0,0.35)] sm:w-32 lg:w-36",
+                      "ring-1 ring-black/[0.06] dark:ring-white/[0.08]",
+                    )}
+                  >
+                    <Image
+                      src="/profile.png"
+                      alt={`${site.name}, ${site.role}`}
+                      fill
+                      sizes="(max-width: 640px) 112px, (max-width: 1024px) 128px, 144px"
+                      className="object-cover object-[50%_20%]"
+                      priority
+                    />
+                  </div>
+                </div>
+              </div>
+              </SpotlightCard>
             </MotionDiv>
           </Container>
         </section>
 
         {/* ── About ────────────────────────────────────────── */}
-        <Section id="about" eyebrow="About">
+        <Section id="about" title="About">
           <AnimateIn>
-            <SpotlightCard className="glass rounded-2xl p-7 sm:p-8">
-              <div className="max-w-3xl space-y-4 text-sm sm:text-base leading-7 text-zinc-300">
+            <SpotlightCard className="glass rounded-2xl p-5 sm:p-8">
+              <div className="max-w-3xl space-y-4 text-sm sm:text-base leading-7 text-[var(--text-body)]">
                 <p>
                   I&apos;m a full-stack developer focused on building scalable
                   systems and seamless user experiences.
@@ -113,18 +137,16 @@ export default function Home() {
         {/* ── Skills ───────────────────────────────────────── */}
         <Section
           id="skills"
-          eyebrow="Skills"
-          title="Balanced full-stack skillset"
-          description="A toolkit optimized for building modern web products—UI, APIs, data, and infra."
+          title="Skills"
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {skillGroups.map((group, i) => (
               <AnimateIn key={group.title} delay={i * 0.08}>
-                <SpotlightCard className="glass rounded-2xl p-6 h-full">
+                <SpotlightCard className="glass h-full rounded-2xl p-5 sm:p-6">
                   <div className="flex items-start justify-between gap-4">
                     <div>
-                      <p className="font-semibold text-zinc-50">{group.title}</p>
-                      <p className="mt-1 text-sm text-zinc-400">
+                      <p className="font-semibold text-[var(--text-primary)]">{group.title}</p>
+                      <p className="mt-1 text-sm text-[var(--text-muted)]">
                         {group.description}
                       </p>
                     </div>
@@ -134,7 +156,7 @@ export default function Home() {
                     {group.items.map((s) => (
                       <span
                         key={s}
-                        className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-xs font-semibold text-zinc-200"
+                        className="rounded-full border border-[var(--border-subtle)] bg-[var(--fill-chip)] px-3 py-1 text-xs font-semibold text-[var(--text-secondary)]"
                       >
                         {s}
                       </span>
@@ -149,40 +171,38 @@ export default function Home() {
         {/* ── Projects ─────────────────────────────────────── */}
         <Section
           id="projects"
-          eyebrow="Projects"
-          title="Full-stack projects with engineering depth"
-          description="Selected work that demonstrates architecture, real-world constraints, and UX quality."
+          title="Projects"
         >
           <div className="grid grid-cols-1 gap-4">
             {projects.map((p, i) => (
               <AnimateIn key={p.slug} delay={i * 0.1}>
                 <SpotlightCard
                   className={cn(
-                    "glass rounded-2xl p-6",
+                    "glass min-w-0 rounded-2xl p-5 sm:p-6",
                     p.featured ? "ring-1 ring-[var(--ring)]" : "",
                   )}
                 >
-                  <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <p className="text-lg font-bold text-zinc-50">
+                  <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+                    <div className="min-w-0 flex-1">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <p className="text-lg font-bold text-[var(--text-primary)]">
                           {p.name}
                         </p>
                         {p.featured ? (
-                          <span className="rounded-full bg-white/[0.06] border border-white/10 px-2.5 py-1 text-[11px] font-semibold text-zinc-200">
+                          <span className="rounded-full bg-[var(--fill-badge)] border border-[var(--border-subtle)] px-2.5 py-1 text-[11px] font-semibold text-[var(--text-secondary)]">
                             Featured
                           </span>
                         ) : null}
                       </div>
-                      <p className="mt-2 text-sm leading-6 text-zinc-300">
+                      <p className="mt-2 text-sm leading-6 text-[var(--text-body)] text-pretty">
                         {p.description}
                       </p>
                     </div>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex min-w-0 flex-wrap gap-2 md:max-w-[min(100%,22rem)] md:justify-end">
                       {p.stack.slice(0, 6).map((t) => (
                         <span
                           key={t}
-                          className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-xs font-semibold text-zinc-200"
+                          className="rounded-full border border-[var(--border-subtle)] bg-[var(--fill-chip)] px-3 py-1 text-xs font-semibold text-[var(--text-secondary)]"
                         >
                           {t}
                         </span>
@@ -191,23 +211,23 @@ export default function Home() {
                   </div>
 
                   <div className="mt-5 grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-4">
-                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-zinc-500">
+                    <div className="panel-inset p-4">
+                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--text-label)]">
                         Problem
                       </p>
-                      <p className="mt-2 text-sm leading-6 text-zinc-300">
+                      <p className="mt-2 text-sm leading-6 text-[var(--text-body)] text-pretty break-words">
                         {p.problem}
                       </p>
                     </div>
-                    <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-4 md:col-span-2">
-                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-zinc-500">
+                    <div className="panel-inset p-4 md:col-span-2">
+                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--text-label)]">
                         What I built
                       </p>
-                      <ul className="mt-2 space-y-2 text-sm leading-6 text-zinc-300">
+                      <ul className="mt-2 space-y-2 text-sm leading-6 text-[var(--text-body)]">
                         {p.contributions.map((c) => (
                           <li key={c} className="flex gap-2">
                             <span className="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full bg-gradient-to-r from-[var(--accent-from)] to-[var(--accent-to)]" />
-                            <span>{c}</span>
+                            <span className="min-w-0 break-words">{c}</span>
                           </li>
                         ))}
                       </ul>
@@ -215,15 +235,18 @@ export default function Home() {
                   </div>
 
                   {p.impact.length ? (
-                    <div className="mt-4 rounded-2xl border border-white/10 bg-white/[0.02] p-4">
-                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-zinc-500">
+                    <div className="panel-inset mt-4 p-4">
+                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--text-label)]">
                         Impact
                       </p>
-                      <ul className="mt-2 flex flex-col sm:flex-row gap-2 sm:gap-4 text-sm text-zinc-300">
+                      <ul className="mt-2 flex flex-col gap-3 text-sm text-[var(--text-body)] sm:flex-row sm:flex-wrap sm:gap-4">
                         {p.impact.map((i) => (
-                          <li key={i} className="flex items-center gap-2">
-                            <span className="h-1.5 w-1.5 rounded-full bg-zinc-600" />
-                            <span>{i}</span>
+                          <li
+                            key={i}
+                            className="flex min-w-0 items-start gap-2 sm:max-w-[min(100%,28rem)]"
+                          >
+                            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--bullet)]" />
+                            <span className="min-w-0 break-words">{i}</span>
                           </li>
                         ))}
                       </ul>
@@ -238,24 +261,23 @@ export default function Home() {
         {/* ── Experience ───────────────────────────────────── */}
         <Section
           id="experience"
-          eyebrow="Experience"
-          title="Experience that shows systems thinking"
+          title="Experience"
           description="Where I applied research rigor and engineering discipline to real datasets and pipelines."
         >
           <AnimateIn>
-            <SpotlightCard className="glass rounded-2xl p-6">
+            <SpotlightCard className="glass rounded-2xl p-5 sm:p-6">
               <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
                 <div>
-                  <p className="font-semibold text-zinc-50">
+                  <p className="font-semibold text-[var(--text-primary)]">
                     ML Research Intern
                   </p>
-                  <p className="mt-1 text-sm text-zinc-400">
+                  <p className="mt-1 text-sm text-[var(--text-muted)]">
                     Fake news detection • data pipelines • TF-IDF features
                   </p>
                 </div>
-                <p className="text-sm text-zinc-500">Internship</p>
+                <p className="text-sm text-[var(--text-label)]">Internship</p>
               </div>
-              <ul className="mt-4 space-y-2 text-sm leading-6 text-zinc-300">
+              <ul className="mt-4 space-y-2 text-sm leading-6 text-[var(--text-body)]">
                 {[
                   "Built a preprocessing pipeline for text cleaning, tokenization, and vectorization (TF-IDF).",
                   "Designed an experiment workflow to evaluate models consistently across splits and metrics.",
@@ -274,17 +296,16 @@ export default function Home() {
         {/* ── Certifications ───────────────────────────────── */}
         <Section
           id="certifications"
-          eyebrow="Certifications"
-          title="Credentials"
+          title="Certifications"
           description="Focused certifications aligned with backend engineering and applied AI."
         >
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {["Oracle Java SE 17", "OCI Generative AI", "Google AI Essentials"].map(
               (c, i) => (
                 <AnimateIn key={c} delay={i * 0.08}>
-                  <SpotlightCard className="glass rounded-2xl p-6 h-full">
-                    <p className="font-semibold text-zinc-50">{c}</p>
-                    <p className="mt-2 text-sm text-zinc-400">
+                  <SpotlightCard className="glass h-full rounded-2xl p-5 sm:p-6">
+                    <p className="font-semibold text-[var(--text-primary)]">{c}</p>
+                    <p className="mt-2 text-sm text-[var(--text-muted)]">
                       Verified certification highlighting job-relevant expertise.
                     </p>
                   </SpotlightCard>
@@ -302,12 +323,12 @@ export default function Home() {
           description="If you're hiring for SDE / Full Stack roles or want to collaborate, I'd love to chat."
         >
           <AnimateIn>
-            <SpotlightCard className="glass rounded-2xl p-7 sm:p-8">
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
-                <div>
-                  <p className="text-sm text-zinc-400">Email</p>
+            <SpotlightCard className="glass rounded-2xl p-5 sm:p-8">
+              <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+                <div className="min-w-0">
+                  <p className="text-sm text-[var(--text-muted)]">Email</p>
                   <a
-                    className="mt-1 inline-flex items-center gap-2 font-semibold text-zinc-50 hover:text-white transition"
+                    className="mt-1 inline-block max-w-full break-all font-semibold text-[var(--text-primary)] transition hover:text-[var(--text-primary)] sm:break-normal"
                     href={`mailto:${site.email}`}
                   >
                     {site.email}
@@ -316,7 +337,7 @@ export default function Home() {
 
                 <div className="flex items-center gap-2">
                   <a
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.02] text-zinc-200 transition hover:bg-white/[0.06] hover:text-zinc-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[var(--border-subtle)] bg-[var(--fill-chip)] text-[var(--text-secondary)] transition hover:bg-[var(--fill-badge)] hover:text-[var(--text-primary)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
                     href={site.links.github}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -334,13 +355,12 @@ export default function Home() {
                     </svg>
                   </a>
                   <a
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.02] text-zinc-200 transition hover:bg-white/[0.06] hover:text-zinc-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[var(--border-subtle)] bg-[var(--fill-chip)] text-[var(--text-secondary)] transition hover:bg-[var(--fill-badge)] hover:text-[var(--text-primary)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
                     href={site.links.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="LinkedIn"
-                    title="LinkedIn"
-                  >
+                    title="LinkedIn"                  >
                     <svg
                       width="18"
                       height="18"
@@ -362,3 +382,8 @@ export default function Home() {
     </div>
   );
 }
+
+
+
+
+
